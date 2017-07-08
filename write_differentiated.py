@@ -72,8 +72,7 @@ class MyListener(object):
 #       sys.exit(0)  
         conn.ack({'message-id':headers['message-id']}) 
         #Opens or creates a file, greenshoeCG.csv, for writing only and stores values that were stored in the database
-        #Opens or creates a file, greenshoeCG.csv, for writing only and stores values that were stored in the database
-	f=open("greenshoeCG.csv","w")
+	f=open("greenshoenotCG.csv","w")
 
 
 	if f:
