@@ -1,6 +1,7 @@
 import sys  
 import os  
-import logging  
+import logging 
+# run "pip install stomp.py" to successfully import it 
 import stomp  
 import time  
 import json 
@@ -67,12 +68,14 @@ conn.close()
  
   
 queuename = sys.argv[1]
+username = sys.argv[2]
+password = sys.argv[3]
 logging.basicConfig(level=logging.DEBUG)  
 start = time.time()  
   
 conn = stomp.Connection([('0.0.0.0', 61612)])  
 conn.start()  
-conn.connect(wait=True)  
+conn.connect(username, password, wait=True)  
   
 for i in ActiveMQ: 
     msg = {'cv1':i[0],'cv2':i[1],'cv3':i[2],'cv4':i[3],'cv5':i[4],'cv6':i[5],'cv7':i[6],'cv8':i[7],'cv9':i[8],'cv10':i[9],'cv11':i[10],'cv12':i[11]}  
