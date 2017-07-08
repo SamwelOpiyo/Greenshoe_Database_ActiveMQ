@@ -6,7 +6,7 @@ import json
 import time
 
 
-
+import sqlite3
 
 #connects to a sqlite database(file), greenshoe.db, if it exists or creates it
 conn = sqlite3.connect('greenshoe.db')
@@ -94,7 +94,7 @@ logging.basicConfig(level=logging.DEBUG)
 conn = stomp.Connection([('0.0.0.0', 61612)])  
 conn.set_listener('', MyListener())  
 conn.start()  
-conn.connect(username, password, wait=True)  
+conn.connect(wait=True, username=username, passcode=password)  
 conn.subscribe(destination='/queue/'+queuename, ack='auto')  
       
 while True:  
@@ -103,8 +103,7 @@ while True:
     except:  
         break
 
-
-
+conn.disconnect()
 
 
 

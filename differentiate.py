@@ -75,7 +75,7 @@ start = time.time()
   
 conn = stomp.Connection([('0.0.0.0', 61612)])  
 conn.start()  
-conn.connect(username, password, wait=True)  
+conn.connect(wait=True, username=username, passcode=password)  
   
 for i in ActiveMQ: 
     msg = {'cv1':i[0],'cv2':i[1],'cv3':i[2],'cv4':i[3],'cv5':i[4],'cv6':i[5],'cv7':i[6],'cv8':i[7],'cv9':i[8],'cv10':i[9],'cv11':i[10],'cv12':i[11]}  
