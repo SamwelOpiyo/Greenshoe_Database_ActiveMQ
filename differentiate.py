@@ -66,6 +66,11 @@ conn.close()
 
 
  
+#edit activemq.xml which can be found at "/usr/local/apache-activemq/conf/activemq.xml"
+#make transportConnectors look like this:  
+
+# <transportConnector name="stomp" uri="stomp://0.0.0.0:61612?transport.closeAsync=false"/>
+# <transportConnector name="stomp+nio" uri="stomp+nio://0.0.0.0:61613?transport.closeAsync=false"/>
   
 queuename = sys.argv[1]
 username = sys.argv[2]
@@ -83,4 +88,8 @@ for i in ActiveMQ:
     print "send one"  
   
 conn.disconnect()  
-print "OK Finished msgs time %f" % ((time.time()-start))  
+print "OK Finished msgs time %f" % ((time.time()-start)) 
+
+
+
+ 
