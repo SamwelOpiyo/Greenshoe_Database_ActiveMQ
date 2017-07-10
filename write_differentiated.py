@@ -95,7 +95,7 @@ username = sys.argv[2]
 password = sys.argv[3]
 logging.basicConfig(level=logging.DEBUG)  
   
-conn = stomp.Connection([('0.0.0.0', 61612)])  
+conn = stomp.Connection([('0.0.0.0', 61613)])  
 conn.set_listener('', MyListener())  
 conn.start()  
 conn.connect(wait=True, username=username, passcode=password)  
