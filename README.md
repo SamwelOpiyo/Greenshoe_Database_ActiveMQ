@@ -1,5 +1,7 @@
 # Greenshoe_Database_ActiveMQ
 
+Ensure you have python 2 and pip installed.
+
 #File 1
 generatecsv.py generates letters randomly from "A","C","G" or "T" randomly and writes them to a CSV file containing 12 columns and 100 rows
 
