@@ -34,7 +34,7 @@ for record in cursor:
 #reads the records in the database
 cursor = conn.execute("SELECT ROWID, C1, C2, C3, C4, C5, C6, C7, C8, C9, C10, C11, C12 from CSVCG")
 
-#Opens or creates a file, greenshoeCG.csv, for writing only and stores values that were stored in the database
+#Opens or creates a file, greenshoeCG.csv, for writing only and writes values that were stored in the database
 f=open("greenshoeCG.csv","w")
 
 
@@ -68,27 +68,33 @@ class MyListener(object):
         print 'received an error %s' % message  
       
     def on_message(self, headers, message): 
-        print headers
-        print str(message)
-        print type(message)
-        print 'received a message ...%s...' % message 
+        print headers 
+	#Converts json object to python dictionary
         msg = json.loads(message)  
-#       print headers['message-id']  
-#       sys.exit(0)  
-        conn.ack({'message-id':headers['message-id']}) 
-        #Opens or creates a file, greenshoeCG.csv, for writing only and stores values that were stored in the database
-	f=open("greenshoenotCG.csv","w")
+        
+	print msg
+        print type(msg)
 
+	#drops "cv" in keys of the dictionary and sorts them
+	l=[int(k[2:]) for k in msg]
+	#creates a new empty list that will hold the 12 values that should be written in the csv file in order
+	t = []
+	#appends each of the 12 values to the list
+	for each in sorted(l):
+            t.append(msg["cv" + str(each)])
 
+	#Opens or creates a file, greenshoeCG.csv, for appending and writes values that were in the queue
+	f=open("greenshoenotCG.csv","a")
 	if f:
-    	    for key,value in msg:
-                #write to the file the value of each field followed by a separator, pipe character
+    	    for value in t:
+                #write to the file each value in the queue followed by a separator, pipe character
             	f.write(value + "|")
-            #moves to the next record
+            #moves to the queue
             f.write("\n")
 
 	#closes the file after writing to it
 	f.close()
+	
 
 queuename = sys.argv[1]
 username = sys.argv[2]
@@ -99,7 +105,7 @@ conn = stomp.Connection([('0.0.0.0', 61613)])
 conn.set_listener('', MyListener())  
 conn.start()  
 conn.connect(wait=True, username=username, passcode=password)  
-conn.subscribe(destination='/queue/'+queuename, ack='auto')  
+conn.subscribe(id='greenshoe',destination='/queue/'+queuename, ack='auto')  
       
 while True:  
     try:  
