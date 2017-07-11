@@ -39,13 +39,6 @@ print "Records created successfully";
 conn.close()
 
 
- 
-#edit activemq.xml which can be found at "/usr/local/apache-activemq/conf/activemq.xml"
-#make transportConnectors look like this:  
-
-# <transportConnector name="stomp" uri="stomp://0.0.0.0:61612?transport.closeAsync=false"/>
-# <transportConnector name="stomp+nio" uri="stomp+nio://0.0.0.0:61613?transport.closeAsync=false"/>
-  
 queuename = sys.argv[2]
 username = sys.argv[3]
 password = sys.argv[4]
